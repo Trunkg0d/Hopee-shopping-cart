@@ -77,11 +77,11 @@
                     <%= form_with url: add_product_path do |form| %>
                         <div class="item__button">
                             <div class="input-group" style="margin-bottom:20px">
-                                    <%= form.collection_radio_buttons :size_product, @product.sizes.all, :id, :name do |b| %>
-                                            <% if @product.product_sizes.find_by(size_id: b.object.id).quantity > 0 %>
-                                                <% b.label(class: "item__size d-flex me-2") {b.label(class: "input-group-text input_group_text") {b.radio_button(class: "form-check-input mt-0", "aria-label" => "Checkbox for following text input" )} + b.label(class:"form-control form_control") {b.text}} %>
-                                            <% end %>    
-                                    <% end %>
+                                <%= form.collection_radio_buttons :size_product, @product.sizes.all, :id, :name do |b| %>
+                                    <% if @product.product_sizes.find_by(size_id: b.object.id).quantity > 0 %>
+                                        <% b.label(class: "item__size d-flex me-2") {b.label(class: "input-group-text input_group_text") {b.radio_button(class: "form-check-input mt-0", "aria-label" => "Checkbox for following text input" )} + b.label(class:"form-control form_control") {b.text}} %>
+                                    <% end %>    
+                                <% end %>
                             </div>
                         </div>
                         <%= form.label :quantity, "Quantity" %> <br/>

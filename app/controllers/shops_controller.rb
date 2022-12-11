@@ -50,10 +50,6 @@ class ShopsController < ApplicationController
     def destroy
     end
 
-    def createVoucher
-        
-    end
-
     private
         def shop_params
             params.require(:shop).permit(:name, :description, :avatar, :user_id)

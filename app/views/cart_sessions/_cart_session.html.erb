@@ -134,6 +134,13 @@
                     </div>
 
                       <div class="d-flex justify-content-between">
+                        <span>
+                          <%= form_with url: addVoucher_path do |form| %>
+                            <%= form.label :voucher_code, "Add voucher" %>
+                            <%= form.text_field :voucher_code %>
+                            <%= form.submit "Add voucher" %>
+                          <% end %>
+                        </span>
                         <span> 
                           <%= button_to "$ #{cart_session.sum_money} Checkout", checkout_path, class: "btn btn-block btn-lg bg-danger" %>
                         </span>

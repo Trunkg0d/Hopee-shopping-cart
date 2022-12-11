@@ -1,5 +1,5 @@
 class CartSessionsController < ApplicationController
-  before_action :set_cart_session, only: %i[ show edit update destroy checkout ]
+  before_action :set_cart_session, only: %i[ show edit update destroy checkout addVoucher]
 
   # GET /cart_sessions or /cart_sessions.json
   def index
@@ -101,6 +101,32 @@ class CartSessionsController < ApplicationController
     else
       flash[:danger] = "Your cart is empty"
       redirect_to cart_session_path(current_cart_session)
+    end
+  end
+
+  def addVoucher
+    @voucher = Voucher.find_by(code: params[:voucher_code])
+    if @voucher.nil? || @voucher.quantity <= 0
+        flash[:danger] = "Voucher not found"
+        redirect_to current_cart_session
+    else  
+      shop = @voucher.shop
+      money_back = 0
+      
+      current_cart_session.cart_items.each do |cart_item|
+        if(cart_item.product.shop == shop)
+          money_back += cart_item.product.price * cart_item.quantity
+        end
+      end
+
+      old_money = current_cart_session.sum_money
+      old_money = old_money - money_back 
+      money_back = money_back - money_back*@voucher.percent/100
+
+      old_money = old_money + money_back
+      current_cart_session.update_attribute(:sum_money, old_money)
+      @voucher.update_attribute(:quantity, @voucher.quantity - 1)
+      redirect_to current_cart_session
     end
   end
 

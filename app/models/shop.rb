@@ -5,3 +5,4 @@ class Shop < ApplicationRecord
     validates :description, presence: true
     has_many :vouchers
 end
+

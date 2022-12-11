@@ -35,6 +35,9 @@ Rails.application.routes.draw do
 
   #cart_item
 
+  #cart_session
+  post '/cart_sessions/:id/addVoucher', to: 'cart_sessions#addVoucher', as: "addVoucher"
+
   #order
   post '/cart_sessions/:id/order', to: 'cart_sessions#checkout', as: "checkout"
 
